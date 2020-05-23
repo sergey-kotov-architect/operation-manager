@@ -91,6 +91,7 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 * app.diagram.net
 
 ### Java 8 Optimisation Algorithm Implementation 
+[Optimisation Service](src/main/java/com/sergeykotov/operationmanager/scheduleservice/service/OptimisationService.java)  
 ![operation-manager-screenshot1](operation-manager-screenshot1.png) 
 ![operation-manager-screenshot2](operation-manager-screenshot2.png) 
 
