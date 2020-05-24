@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.scheduleservice.kafka;
+package com.sergeykotov.operationmanager.scheduleservice.message;
 
 import com.sergeykotov.operationmanager.scheduleservice.model.Op;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class KafkaClient {
+public class MessageProducer {
     public void sendSchedulingInitiatedEvent(long opGroupId) {
         //TODO: implement KafkaClient::sendSchedulingInitiatedEvent
         throw new UnsupportedOperationException();

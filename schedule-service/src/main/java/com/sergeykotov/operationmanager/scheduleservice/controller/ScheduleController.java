@@ -17,7 +17,7 @@ public class ScheduleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void initiateGeneration(@RequestParam(name = "op_group_id") long opGroupId) {
-        scheduleService.initiateScheduling(opGroupId);
+    public void createSchedulingTask(@RequestParam(name = "op_group_id") long opGroupId) {
+        scheduleService.createSchedulingTask(opGroupId);
     }
 }
