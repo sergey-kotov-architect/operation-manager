@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class OpRepository {
@@ -51,6 +52,26 @@ public class OpRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CMD)) {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() == 1;
+        }
+    }
+
+    public int[] update(List<Op> ops) throws SQLException {
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CMD)) {
+            for (Op op : ops) {
+                preparedStatement.setString(1, op.getName());
+                preparedStatement.setString(2, op.getNote());
+                preparedStatement.setString(3, op.getStatus());
+                preparedStatement.setDouble(4, op.getProfit());
+                preparedStatement.setDouble(5, op.getCost());
+                preparedStatement.setLong(6, op.getOpGroup().getId());
+                preparedStatement.setLong(7, op.getTask().getId());
+                preparedStatement.setLong(8, op.getExecutor().getId());
+                preparedStatement.setLong(9, op.getPeriod().getId());
+                preparedStatement.setLong(10, op.getId());
+                preparedStatement.addBatch();
+            }
+            return preparedStatement.executeBatch();
         }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MessageProducer {
@@ -114,5 +115,16 @@ public class MessageProducer {
     public void sendOpEvent(OpEvent opEvent, long id) {
         String message = String.format(opEvent.getMessage(), id);
         sendEvent(opEvent.name(), message, String.valueOf(id));
+    }
+
+    public void sendOpEvent(OpEvent opEvent, long opGroupId, List<Op> ops) {
+        String message = String.format(opEvent.getMessage(), opGroupId);
+        String body = null;
+        try {
+            body = objectMapper.writeValueAsString(ops);
+        } catch (Exception e) {
+            log.error("failed to create JSON to send event to Kafka: {}", message, e);
+        }
+        sendEvent(opEvent.name(), message, body);
     }
 }

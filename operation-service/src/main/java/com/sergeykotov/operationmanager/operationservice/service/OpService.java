@@ -1,14 +1,16 @@
 package com.sergeykotov.operationmanager.operationservice.service;
 
+import com.sergeykotov.operationmanager.operationservice.event.OpEvent;
 import com.sergeykotov.operationmanager.operationservice.exception.DatabaseException;
 import com.sergeykotov.operationmanager.operationservice.message.MessageProducer;
-import com.sergeykotov.operationmanager.operationservice.event.OpEvent;
 import com.sergeykotov.operationmanager.operationservice.model.Op;
 import com.sergeykotov.operationmanager.operationservice.repository.OpRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OpService {
@@ -60,5 +62,17 @@ public class OpService {
         }
         log.info("operation has been deleted by ID {}", id);
         messageProducer.sendOpEvent(OpEvent.OP_DELETED, id);
+    }
+
+    public void update(long opGroupId, List<Op> ops) {
+        log.info("updating operations for group ID {}", opGroupId);
+        try {
+            opRepository.update(ops);
+        } catch (Exception e) {
+            log.error("failed to update operations for group ID {}", opGroupId, e);
+            messageProducer.sendOpEvent(OpEvent.OPS_NOT_UPDATED, opGroupId, ops);
+        }
+        log.info("operations have been updated for group ID {}", opGroupId);
+        messageProducer.sendOpEvent(OpEvent.OPS_UPDATED, opGroupId, ops);
     }
 }
