@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sergeykotov.operationmanager.operationservice.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,12 +14,21 @@ import java.time.LocalDateTime;
 public class KafkaClient {
     private static final Logger log = LoggerFactory.getLogger(KafkaClient.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String TOPIC = "OPERATION";
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
+    public KafkaClient(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     private void sendEvent(String code, String message, String body) {
         log.info("sending event to Kafka: {}", message);
         try {
             Event event = new Event(code, message, LocalDateTime.now().toString(), body);
-            //TODO: implement KafkaClient::sendEvent
+            String json = objectMapper.writeValueAsString(event);
+            kafkaTemplate.send(TOPIC, json);
         } catch (Exception e) {
             log.error("failed to send event to Kafka: {}", message, e);
         }
