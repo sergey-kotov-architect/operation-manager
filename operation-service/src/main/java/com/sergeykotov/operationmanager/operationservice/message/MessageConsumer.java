@@ -25,7 +25,7 @@ public class MessageConsumer {
         this.opService = opService;
     }
 
-    @KafkaListener(topics = "SCHEDULE", groupId = "SCHEDULE")
+    @KafkaListener(topics = "SCHEDULE_GENERATED", groupId = "SCHEDULE")
     public void listen(String message) {
         Event event = null;
         try {
