@@ -1,8 +1,8 @@
 package com.sergeykotov.operationmanager.operationservice.service;
 
 import com.sergeykotov.operationmanager.operationservice.exception.DatabaseException;
-import com.sergeykotov.operationmanager.operationservice.kafka.KafkaClient;
-import com.sergeykotov.operationmanager.operationservice.kafka.OpGroupEvent;
+import com.sergeykotov.operationmanager.operationservice.message.MessageProducer;
+import com.sergeykotov.operationmanager.operationservice.event.OpGroupEvent;
 import com.sergeykotov.operationmanager.operationservice.model.OpGroup;
 import com.sergeykotov.operationmanager.operationservice.repository.OpGroupRepository;
 import org.slf4j.Logger;
@@ -15,12 +15,12 @@ public class OpGroupService {
     private static final Logger log = LoggerFactory.getLogger(OpGroupService.class);
 
     private final OpGroupRepository opGroupRepository;
-    private final KafkaClient kafkaClient;
+    private final MessageProducer messageProducer;
 
     @Autowired
-    public OpGroupService(OpGroupRepository opGroupRepository, KafkaClient kafkaClient) {
+    public OpGroupService(OpGroupRepository opGroupRepository, MessageProducer messageProducer) {
         this.opGroupRepository = opGroupRepository;
-        this.kafkaClient = kafkaClient;
+        this.messageProducer = messageProducer;
     }
 
     public void create(OpGroup opGroup) {
@@ -29,11 +29,11 @@ public class OpGroupService {
             opGroupRepository.create(opGroup);
         } catch (Exception e) {
             log.error("failed to create operation group {}, {}", opGroup, e.getMessage());
-            kafkaClient.sendOpGroupEvent(OpGroupEvent.OP_GROUP_NOT_CREATED, opGroup);
+            messageProducer.sendOpGroupEvent(OpGroupEvent.OP_GROUP_NOT_CREATED, opGroup);
             throw new DatabaseException(e);
         }
         log.info("operation group {} has been created", opGroup);
-        kafkaClient.sendOpGroupEvent(OpGroupEvent.OP_GROUP_CREATED, opGroup);
+        messageProducer.sendOpGroupEvent(OpGroupEvent.OP_GROUP_CREATED, opGroup);
     }
 
     public void update(OpGroup opGroup) {
@@ -42,11 +42,11 @@ public class OpGroupService {
             opGroupRepository.update(opGroup);
         } catch (Exception e) {
             log.error("failed to update operation group {}, {}", opGroup, e.getMessage());
-            kafkaClient.sendOpGroupEvent(OpGroupEvent.OP_GROUP_NOT_UPDATED, opGroup);
+            messageProducer.sendOpGroupEvent(OpGroupEvent.OP_GROUP_NOT_UPDATED, opGroup);
             throw new DatabaseException(e);
         }
         log.info("operation group {} has been updated", opGroup);
-        kafkaClient.sendOpGroupEvent(OpGroupEvent.OP_GROUP_UPDATED, opGroup);
+        messageProducer.sendOpGroupEvent(OpGroupEvent.OP_GROUP_UPDATED, opGroup);
     }
 
     public void delete(long id) {
@@ -55,10 +55,10 @@ public class OpGroupService {
             opGroupRepository.delete(id);
         } catch (Exception e) {
             log.error("failed to delete operation group by ID {}, {}", id, e.getMessage());
-            kafkaClient.sendOpGroupEvent(OpGroupEvent.OP_GROUP_NOT_DELETED, id);
+            messageProducer.sendOpGroupEvent(OpGroupEvent.OP_GROUP_NOT_DELETED, id);
             throw new DatabaseException(e);
         }
         log.info("operation group has been deleted by ID {}", id);
-        kafkaClient.sendOpGroupEvent(OpGroupEvent.OP_GROUP_DELETED, id);
+        messageProducer.sendOpGroupEvent(OpGroupEvent.OP_GROUP_DELETED, id);
     }
 }

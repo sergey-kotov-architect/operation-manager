@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.operationservice.kafka;
+package com.sergeykotov.operationmanager.operationservice.event;
 
 public class Event {
     private String code;
@@ -27,5 +27,10 @@ public class Event {
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public String toString() {
+        return getTimestamp() + ": " + getMessage();
     }
 }

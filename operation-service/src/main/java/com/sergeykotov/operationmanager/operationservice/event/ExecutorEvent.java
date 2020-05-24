@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.operationservice.kafka;
+package com.sergeykotov.operationmanager.operationservice.event;
 
 public enum ExecutorEvent {
     EXECUTOR_CREATED("executor %s has been created"),

@@ -1,8 +1,8 @@
 package com.sergeykotov.operationmanager.operationservice.service;
 
 import com.sergeykotov.operationmanager.operationservice.exception.DatabaseException;
-import com.sergeykotov.operationmanager.operationservice.kafka.ExecutorEvent;
-import com.sergeykotov.operationmanager.operationservice.kafka.KafkaClient;
+import com.sergeykotov.operationmanager.operationservice.event.ExecutorEvent;
+import com.sergeykotov.operationmanager.operationservice.message.MessageProducer;
 import com.sergeykotov.operationmanager.operationservice.model.Executor;
 import com.sergeykotov.operationmanager.operationservice.repository.ExecutorRepository;
 import org.slf4j.Logger;
@@ -15,12 +15,12 @@ public class ExecutorService {
     private static final Logger log = LoggerFactory.getLogger(ExecutorService.class);
 
     private final ExecutorRepository executorRepository;
-    private final KafkaClient kafkaClient;
+    private final MessageProducer messageProducer;
 
     @Autowired
-    public ExecutorService(ExecutorRepository executorRepository, KafkaClient kafkaClient) {
+    public ExecutorService(ExecutorRepository executorRepository, MessageProducer messageProducer) {
         this.executorRepository = executorRepository;
-        this.kafkaClient = kafkaClient;
+        this.messageProducer = messageProducer;
     }
 
     public void create(Executor executor) {
@@ -29,11 +29,11 @@ public class ExecutorService {
             executorRepository.create(executor);
         } catch (Exception e) {
             log.error("failed to create executor {}, {}", executor, e.getMessage());
-            kafkaClient.sendExecutorEvent(ExecutorEvent.EXECUTOR_NOT_CREATED, executor);
+            messageProducer.sendExecutorEvent(ExecutorEvent.EXECUTOR_NOT_CREATED, executor);
             throw new DatabaseException(e);
         }
         log.info("executor {} has been created", executor);
-        kafkaClient.sendExecutorEvent(ExecutorEvent.EXECUTOR_CREATED, executor);
+        messageProducer.sendExecutorEvent(ExecutorEvent.EXECUTOR_CREATED, executor);
     }
 
     public void update(Executor executor) {
@@ -42,11 +42,11 @@ public class ExecutorService {
             executorRepository.update(executor);
         } catch (Exception e) {
             log.error("failed to update executor {}, {}", executor, e.getMessage());
-            kafkaClient.sendExecutorEvent(ExecutorEvent.EXECUTOR_NOT_UPDATED, executor);
+            messageProducer.sendExecutorEvent(ExecutorEvent.EXECUTOR_NOT_UPDATED, executor);
             throw new DatabaseException(e);
         }
         log.info("executor {} has been updated", executor);
-        kafkaClient.sendExecutorEvent(ExecutorEvent.EXECUTOR_UPDATED, executor);
+        messageProducer.sendExecutorEvent(ExecutorEvent.EXECUTOR_UPDATED, executor);
     }
 
     public void delete(long id) {
@@ -55,10 +55,10 @@ public class ExecutorService {
             executorRepository.delete(id);
         } catch (Exception e) {
             log.error("failed to delete executor by ID {}, {}", id, e.getMessage());
-            kafkaClient.sendExecutorEvent(ExecutorEvent.EXECUTOR_NOT_DELETED, id);
+            messageProducer.sendExecutorEvent(ExecutorEvent.EXECUTOR_NOT_DELETED, id);
             throw new DatabaseException(e);
         }
         log.info("executor has been deleted by ID {}", id);
-        kafkaClient.sendExecutorEvent(ExecutorEvent.EXECUTOR_DELETED, id);
+        messageProducer.sendExecutorEvent(ExecutorEvent.EXECUTOR_DELETED, id);
     }
 }

@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.operationservice.kafka;
+package com.sergeykotov.operationmanager.operationservice.event;
 
 public enum PeriodEvent {
     PERIOD_CREATED("period %s has been created"),

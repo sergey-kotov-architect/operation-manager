@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.operationservice;
+package com.sergeykotov.operationmanager.operationservice.message;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaProducerConfiguration {
-    private static final String URL = "";
+public class MessageProducerConfiguration {
+    private static final String URL = "localhost:8080";
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {

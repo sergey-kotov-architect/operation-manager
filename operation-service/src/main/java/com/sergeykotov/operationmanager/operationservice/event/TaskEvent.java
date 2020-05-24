@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.operationservice.kafka;
+package com.sergeykotov.operationmanager.operationservice.event;
 
 public enum TaskEvent {
     TASK_CREATED("task %s has been created"),

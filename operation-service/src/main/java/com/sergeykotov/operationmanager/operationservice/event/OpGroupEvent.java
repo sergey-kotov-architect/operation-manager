@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.operationservice.kafka;
+package com.sergeykotov.operationmanager.operationservice.event;
 
 public enum OpGroupEvent {
     OP_GROUP_CREATED("operation group %s has been created"),

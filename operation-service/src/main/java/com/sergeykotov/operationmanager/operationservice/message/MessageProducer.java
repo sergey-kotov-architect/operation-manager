@@ -1,6 +1,7 @@
-package com.sergeykotov.operationmanager.operationservice.kafka;
+package com.sergeykotov.operationmanager.operationservice.message;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sergeykotov.operationmanager.operationservice.event.*;
 import com.sergeykotov.operationmanager.operationservice.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +12,15 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class KafkaClient {
-    private static final Logger log = LoggerFactory.getLogger(KafkaClient.class);
+public class MessageProducer {
+    private static final Logger log = LoggerFactory.getLogger(MessageProducer.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String TOPIC = "OPERATION";
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    public KafkaClient(KafkaTemplate<String, String> kafkaTemplate) {
+    public MessageProducer(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
