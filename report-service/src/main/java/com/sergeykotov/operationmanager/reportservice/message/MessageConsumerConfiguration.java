@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.scheduleservice.message;
+package com.sergeykotov.operationmanager.reportservice.message;
 
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
