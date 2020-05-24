@@ -1,4 +1,5 @@
-Distributed Information System manages operations, generates its optimal schedule, evaluates its metrics, tracks all activity in real-time, provides chat room, sends notifications.
+Operation Manager is a Distributed Information System that manages operations, generates its optimal schedule, 
+evaluates its metrics, tracks all activity in real-time, provides chat room, sends notifications.
 
 ### Table of Contents  
 - [Data Model](#data-model)  
