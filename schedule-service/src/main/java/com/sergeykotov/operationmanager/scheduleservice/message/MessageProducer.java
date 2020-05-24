@@ -3,6 +3,7 @@ package com.sergeykotov.operationmanager.scheduleservice.message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sergeykotov.operationmanager.scheduleservice.event.Event;
 import com.sergeykotov.operationmanager.scheduleservice.event.EventType;
+import com.sergeykotov.operationmanager.scheduleservice.event.ScheduleEvent;
 import com.sergeykotov.operationmanager.scheduleservice.model.Op;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

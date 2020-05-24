@@ -1,4 +1,4 @@
-package com.sergeykotov.operationmanager.scheduleservice.message;
+package com.sergeykotov.operationmanager.scheduleservice.event;
 
 import com.sergeykotov.operationmanager.scheduleservice.model.Op;
 
