@@ -1,29 +1,14 @@
 Distributed Information System manages operations, generates its optimal schedule, evaluates its metrics, tracks all activity in real-time, provides chat room, sends notifications.
 
 ### Table of Contents  
-- [Use Case](#use-case)  
-- [Domain Model](#domain-model)  
 - [Data Model](#data-model)  
 - [Optimisation Task and Solution](#optimisation-task-and-solution)  
+- [Java 8 Optimisation Algorithm Implementation](#java-8-optimisation-algorithm-implementation)  
 - [Functional Requirements](#functional-requirements) 
 - [Non-Functional Requirements](#non-functional-requirements) 
 - [Architecture](#architecture) 
 - [System Architecture Diagram](#system-architecture-diagram) 
-- [Technologies](#technologies) 
-- [Tools](#tools) 
-- [Java 8 Optimisation Algorithm Implementation](#java-8-optimisation-algorithm-implementation) 
-- [TODO](#todo) 
-
-### Use Case  
-to be done, plus PowerPoint presentation, who are potential users, what is business value, why this solution is better than similar exiting ones.  
-
-### Domain Model  
-* Task - name, note.  
-* Executor - name, note.  
-* Period - name, note, start timestamp, end timestamp.  
-* Operation group - name, note.  
-* Operation - name, note, status, profit, cost, operation group, task, executor, period.  
-* Schedule - a set of operations, pair (task, period) is unique in the set.  
+- [Technologies and Tools](#technologies-and-tools)  
 
 ### Data Model  
 ![Data Model Diagram](operation-service/src/main/resources/operation-manager-data-model.png)  
@@ -31,7 +16,12 @@ to be done, plus PowerPoint presentation, who are potential users, what is busin
 
 ### Optimisation Task and Solution  
 Task: to generate a schedule, so that operations would be most uniformly distributed among executors.  
-Solution: generate all possible schedules and choose the one with minimal deviation of operation profit/cost sum per executor from its mean value. 
+Solution: generate all possible schedules and choose the one with minimal deviation of operation cost sum per executor from its mean value. 
+
+### Java 8 Optimisation Algorithm Implementation 
+[Optimisation Service](schedule-service/src/main/java/com/sergeykotov/operationmanager/scheduleservice/service/OptimisationService.java)  
+![operation-manager-screenshot1](schedule-service/src/main/resources/operation-manager-screenshot1.png) 
+![operation-manager-screenshot2](schedule-service/src/main/resources/operation-manager-screenshot2.png)  
 
 ### Functional Requirements  
 * create/update/delete task/executor/period/operation/operation group.  
@@ -67,11 +57,11 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 10. Schedule Service receives an event from Message System about failure to save schedule or change of operation.   
 11. Report Service receives an event from Message System about domain entities create/update/delete, or about schedule saving.  
 12. Audit Service receives an event from Message System.  
-13. Chat Service receives an event from Message System about opertion group changes.  
+13. Chat Service receives an event from Message System about operation group changes.  
 14. Notification Service receives a schedule change event from Message System and sends notifications according to the configuration settings.  
 15. Notification Service publishes an event to Message System about success/failure to send a notification.  
 
-### Technologies 
+### Technologies and Tools
 * Java 8 
 * Spring framework (Boot, Actuator, Web/MVC, Data, Test, Slf4j/Logback)
 * Oracle Database (for MVP SQLite is to be used instead)  
@@ -80,8 +70,6 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 * Apache Kafka 
 * Maven 
 * ApiGateway 
-
-### Tools 
 * IntelliJ IDEA  
 * PL/SQL Developer 
 * JProfiler 
@@ -90,13 +78,3 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 * GitHub 
 * Jenkins 
 * app.diagram.net
-
-### Java 8 Optimisation Algorithm Implementation 
-[Optimisation Service](schedule-service/src/main/java/com/sergeykotov/operationmanager/scheduleservice/service/OptimisationService.java)  
-![operation-manager-screenshot1](schedule-service/src/main/resources/operation-manager-screenshot1.png) 
-![operation-manager-screenshot2](schedule-service/src/main/resources/operation-manager-screenshot2.png) 
-
-### TODO 
-* implement Report, Audit, Chat, Notification Services, ApiGateway, Kafka  
-* devise an approximate, heuristic solution, probably using dynamic programming  
-* add an ability to configurate Schedule Service to generate schedule in automatic mode when operations get modified
