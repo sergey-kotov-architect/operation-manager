@@ -43,7 +43,7 @@ public class ScheduleService {
             log.error("failed to extract operations from database for group ID {}", opGroupId, e);
             throw new DatabaseException(e);
         }
-        List<Op> ops = allOps.stream().filter(o -> o.getOpGroupId() == opGroupId).collect(Collectors.toList());
+        List<Op> ops = allOps.stream().filter(o -> o.getOpGroup().getId() == opGroupId).collect(Collectors.toList());
         SchedulingTask task = new SchedulingTask(optimisationService, messageProducer, opGroupId, ops);
         executorService.submit(task);
         log.info("scheduling task has been submitted for operation group ID {}", opGroupId);

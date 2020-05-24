@@ -7,16 +7,16 @@ import java.util.Objects;
 @RedisHash("Op")
 public class Op {
     private long id;
-    private long opGroupId;
     private double cost;
+    private OpGroup opGroup;
     private Task task;
     private Executor executor;
     private Period period;
 
-    public Op(long id, long opGroupId, double cost, Task task, Executor executor, Period period) {
+    public Op(long id, double cost, OpGroup opGroup, Task task, Executor executor, Period period) {
         this.id = id;
-        this.opGroupId = opGroupId;
         this.cost = cost;
+        this.opGroup = opGroup;
         this.task = task;
         this.executor = executor;
         this.period = period;
@@ -26,8 +26,8 @@ public class Op {
         return id;
     }
 
-    public long getOpGroupId() {
-        return opGroupId;
+    public OpGroup getOpGroup() {
+        return opGroup;
     }
 
     public double getCost() {

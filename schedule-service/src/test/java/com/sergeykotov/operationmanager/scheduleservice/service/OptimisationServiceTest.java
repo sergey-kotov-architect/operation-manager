@@ -1,9 +1,6 @@
 package com.sergeykotov.operationmanager.scheduleservice.service;
 
-import com.sergeykotov.operationmanager.scheduleservice.model.Executor;
-import com.sergeykotov.operationmanager.scheduleservice.model.Op;
-import com.sergeykotov.operationmanager.scheduleservice.model.Period;
-import com.sergeykotov.operationmanager.scheduleservice.model.Task;
+import com.sergeykotov.operationmanager.scheduleservice.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,11 +29,13 @@ public class OptimisationServiceTest {
 
         Period period = new Period(1);
 
-        Op op11 = new Op(1, 1, 1.0, task1, executor1, period);
-        Op op21 = new Op(2, 1, 1.0, task1, executor2, period);
-        Op op22 = new Op(3, 1, 1.0, task2, executor2, period);
-        Op op32 = new Op(4, 1, 1.0, task2, executor3, period);
-        Op op33 = new Op(5, 1, 1.0, task3, executor3, period);
+        OpGroup opGroup = new OpGroup(1);
+
+        Op op11 = new Op(1, 1.0, opGroup, task1, executor1, period);
+        Op op21 = new Op(2, 1.0, opGroup, task1, executor2, period);
+        Op op22 = new Op(3, 1.0, opGroup, task2, executor2, period);
+        Op op32 = new Op(4, 1.0, opGroup, task2, executor3, period);
+        Op op33 = new Op(5, 1.0, opGroup, task3, executor3, period);
 
         List<Op> ops = new ArrayList<>();
         ops.add(op11);
