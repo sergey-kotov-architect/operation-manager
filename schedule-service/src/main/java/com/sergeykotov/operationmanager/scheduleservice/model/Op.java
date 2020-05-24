@@ -1,16 +1,21 @@
 package com.sergeykotov.operationmanager.scheduleservice.model;
 
+import org.springframework.data.redis.core.RedisHash;
+
 import java.util.Objects;
 
+@RedisHash("Op")
 public class Op {
     private long id;
+    private long opGroupId;
     private double cost;
     private Task task;
     private Executor executor;
     private Period period;
 
-    public Op(long id, double cost, Task task, Executor executor, Period period) {
+    public Op(long id, long opGroupId, double cost, Task task, Executor executor, Period period) {
         this.id = id;
+        this.opGroupId = opGroupId;
         this.cost = cost;
         this.task = task;
         this.executor = executor;
@@ -19,6 +24,10 @@ public class Op {
 
     public long getId() {
         return id;
+    }
+
+    public long getOpGroupId() {
+        return opGroupId;
     }
 
     public double getCost() {

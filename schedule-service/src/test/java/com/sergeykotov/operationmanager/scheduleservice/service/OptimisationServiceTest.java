@@ -32,11 +32,11 @@ public class OptimisationServiceTest {
 
         Period period = new Period(1);
 
-        Op op11 = new Op(1, 1.0, task1, executor1, period);
-        Op op21 = new Op(2, 1.0, task1, executor2, period);
-        Op op22 = new Op(3, 1.0, task2, executor2, period);
-        Op op32 = new Op(4, 1.0, task2, executor3, period);
-        Op op33 = new Op(5, 1.0, task3, executor3, period);
+        Op op11 = new Op(1, 1, 1.0, task1, executor1, period);
+        Op op21 = new Op(2, 1, 1.0, task1, executor2, period);
+        Op op22 = new Op(3, 1, 1.0, task2, executor2, period);
+        Op op32 = new Op(4, 1, 1.0, task2, executor3, period);
+        Op op33 = new Op(5, 1, 1.0, task3, executor3, period);
 
         List<Op> ops = new ArrayList<>();
         ops.add(op11);
