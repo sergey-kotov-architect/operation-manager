@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Repository
 public class PeriodRepository {
-    private static final String CREATE_CMD = "insert into period (name, note, start_time, end_time) values (?,?,?,?);";
+    private static final String CREATE_CMD = "insert into period (name, note, start_time, end_time) values (?,?,?,?)";
     private static final String UPDATE_CMD = "update period set name = ?, note = ?, start_time = ?, end_time = ? where id = ?";
     private static final String DELETE_CMD = "delete from period where id = ?";
 

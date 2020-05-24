@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 @Repository
 public class ExecutorRepository {
-    private static final String CREATE_CMD = "insert into executor (name, note) values (?, ?);";
+    private static final String CREATE_CMD = "insert into executor (name, note) values (?, ?)";
     private static final String UPDATE_CMD = "update executor set name = ?, note = ? where id = ?";
     private static final String DELETE_CMD = "delete from executor where id = ?";
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class OpRepository {
-    private static final String CREATE_CMD = "insert into op (name, note, status, profit, cost, op_group_id, task_id, executor_id, period_id) values (?,?,?,?,?,?,?,?,?);";
+    private static final String CREATE_CMD = "insert into op (name, note, status, profit, cost, op_group_id, task_id, executor_id, period_id) values (?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE_CMD = "update op set name = ?, note = ?, status = ?, profit = ?, cost = ?, op_group_id = ?, task_id = ?, executor_id = ?, period_id = ? where id = ?";
     private static final String DELETE_CMD = "delete from op where id = ?";
 

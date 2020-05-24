@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 @Repository
 public class OpGroupRepository {
-    private static final String CREATE_CMD = "insert into op_group (name, note) values (?, ?);";
+    private static final String CREATE_CMD = "insert into op_group (name, note) values (?, ?)";
     private static final String UPDATE_CMD = "update op_group set name = ?, note = ? where id = ?";
     private static final String DELETE_CMD = "delete from op_group where id = ?";
 

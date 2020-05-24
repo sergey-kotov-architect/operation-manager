@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 @Repository
 public class TaskRepository {
-    private static final String CREATE_CMD = "insert into task (name, note) values (?, ?);";
+    private static final String CREATE_CMD = "insert into task (name, note) values (?, ?)";
     private static final String UPDATE_CMD = "update task set name = ?, note = ? where id = ?";
     private static final String DELETE_CMD = "delete from task where id = ?";
 
