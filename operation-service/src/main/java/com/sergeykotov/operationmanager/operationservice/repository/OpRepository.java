@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 @Repository
 public class OpRepository {
-    private static final String CREATE_CMD = "insert into op (name, note) values (?, ?);";
-    private static final String UPDATE_CMD = "update op set name = ?, note = ? where id = ?";
+    private static final String CREATE_CMD = "insert into op (name, note, status, profit, cost, op_group_id, task_id, executor_id, period_id) values (?,?,?,?,?,?,?,?,?);";
+    private static final String UPDATE_CMD = "update op set name = ?, note = ?, status = ?, profit = ?, cost = ?, op_group_id = ?, task_id = ?, executor_id = ?, period_id = ? where id = ?";
     private static final String DELETE_CMD = "delete from op where id = ?";
 
     public boolean create(Op op) throws SQLException {
@@ -18,6 +18,13 @@ public class OpRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_CMD)) {
             preparedStatement.setString(1, op.getName());
             preparedStatement.setString(2, op.getNote());
+            preparedStatement.setString(3, op.getStatus());
+            preparedStatement.setDouble(4, op.getProfit());
+            preparedStatement.setDouble(5, op.getCost());
+            preparedStatement.setLong(6, op.getOpGroup().getId());
+            preparedStatement.setLong(7, op.getTask().getId());
+            preparedStatement.setLong(8, op.getExecutor().getId());
+            preparedStatement.setLong(9, op.getPeriod().getId());
             return preparedStatement.executeUpdate() == 1;
         }
     }
@@ -27,7 +34,14 @@ public class OpRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CMD)) {
             preparedStatement.setString(1, op.getName());
             preparedStatement.setString(2, op.getNote());
-            preparedStatement.setLong(3, op.getId());
+            preparedStatement.setString(3, op.getStatus());
+            preparedStatement.setDouble(4, op.getProfit());
+            preparedStatement.setDouble(5, op.getCost());
+            preparedStatement.setLong(6, op.getOpGroup().getId());
+            preparedStatement.setLong(7, op.getTask().getId());
+            preparedStatement.setLong(8, op.getExecutor().getId());
+            preparedStatement.setLong(9, op.getPeriod().getId());
+            preparedStatement.setLong(10, op.getId());
             return preparedStatement.executeUpdate() == 1;
         }
     }
