@@ -21,18 +21,42 @@ public class OpService {
     }
 
     public void create(Op op) {
-        operationRepository.save(op);
+        try {
+            operationRepository.save(op);
+        } catch (Exception e) {
+            log.error("failed to create op {}", op, e);
+            return;
+        }
+        log.info("op {} has been created", op);
     }
 
     public void update(Op op) {
-        operationRepository.save(op);
+        try {
+            operationRepository.save(op);
+        } catch (Exception e) {
+            log.error("failed to update op {}", op, e);
+            return;
+        }
+        log.info("op {} has been update", op);
     }
 
     public void delete(long id) {
-        operationRepository.deleteById(id);
+        try {
+            operationRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("failed to delete op with ID {}", id, e);
+            return;
+        }
+        log.info("op with ID {} has been deleted", id);
     }
 
     public void update(List<Op> ops) {
-        operationRepository.saveAll(ops);
+        try {
+            operationRepository.saveAll(ops);
+        } catch (Exception e) {
+            log.error("failed to update ops", e);
+            return;
+        }
+        log.info("ops have been updated");
     }
 }
