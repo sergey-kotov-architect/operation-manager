@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/operation")
 public class OpController {
@@ -18,13 +20,13 @@ public class OpController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Op op) {
+    public void create(@RequestBody @Valid Op op) {
         opService.create(op);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Op op) {
+    public void update(@RequestBody @Valid Op op) {
         opService.update(op);
     }
 

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/operation/group")
 public class OpGroupController {
@@ -18,13 +20,13 @@ public class OpGroupController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody OpGroup opGroup) {
+    public void create(@RequestBody @Valid OpGroup opGroup) {
         opGroupService.create(opGroup);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody OpGroup opGroup) {
+    public void update(@RequestBody @Valid OpGroup opGroup) {
         opGroupService.update(opGroup);
     }
 

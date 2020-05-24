@@ -1,13 +1,22 @@
 package com.sergeykotov.operationmanager.operationservice.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Period {
     private long id;
+
+    @NotEmpty
     private String name;
+
     private String note;
+
+    @NotNull
     private LocalDateTime start;
+
+    @NotNull
     private LocalDateTime end;
 
     public Period() {

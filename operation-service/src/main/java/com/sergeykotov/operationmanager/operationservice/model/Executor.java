@@ -1,10 +1,14 @@
 package com.sergeykotov.operationmanager.operationservice.model;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class Executor {
     private long id;
+
+    @NotEmpty
     private String name;
+
     private String note;
 
     public Executor() {

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/operation/period")
 public class PeriodController {
@@ -18,13 +20,13 @@ public class PeriodController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Period period) {
+    public void create(@RequestBody @Valid Period period) {
         periodService.create(period);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Period period) {
+    public void update(@RequestBody @Valid Period period) {
         periodService.update(period);
     }
 

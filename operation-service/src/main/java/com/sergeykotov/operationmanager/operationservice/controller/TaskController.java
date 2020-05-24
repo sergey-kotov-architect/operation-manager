@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/operation/task")
 public class TaskController {
@@ -18,13 +20,13 @@ public class TaskController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Task task) {
+    public void create(@RequestBody @Valid Task task) {
         taskService.create(task);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Task task) {
+    public void update(@RequestBody @Valid Task task) {
         taskService.update(task);
     }
 

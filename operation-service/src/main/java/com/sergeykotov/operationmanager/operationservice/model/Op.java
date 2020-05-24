@@ -1,17 +1,37 @@
 package com.sergeykotov.operationmanager.operationservice.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 public class Op {
     private long id;
+
+    @NotEmpty
     private String name;
+
     private String note;
+
+    @NotEmpty
     private String status;
+
+    @Positive
     private double profit;
+
+    @Positive
     private double cost;
+
+    @NotNull
     private OpGroup opGroup;
+
+    @NotNull
     private Task task;
+
+    @NotNull
     private Executor executor;
+
+    @NotNull
     private Period period;
 
     public Op() {

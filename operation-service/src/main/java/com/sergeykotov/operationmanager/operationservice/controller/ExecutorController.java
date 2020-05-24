@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/operation/executor")
 public class ExecutorController {
@@ -18,13 +20,13 @@ public class ExecutorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Executor executor) {
+    public void create(@RequestBody @Valid Executor executor) {
         executorService.create(executor);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Executor executor) {
+    public void update(@RequestBody @Valid Executor executor) {
         executorService.update(executor);
     }
 
