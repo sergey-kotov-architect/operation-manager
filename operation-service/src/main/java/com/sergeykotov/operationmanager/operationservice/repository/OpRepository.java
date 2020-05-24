@@ -13,6 +13,7 @@ public class OpRepository {
     private static final String CREATE_CMD = "insert into op (name, note, status, profit, cost, op_group_id, task_id, executor_id, period_id) values (?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE_CMD = "update op set name = ?, note = ?, status = ?, profit = ?, cost = ?, op_group_id = ?, task_id = ?, executor_id = ?, period_id = ? where id = ?";
     private static final String DELETE_CMD = "delete from op where id = ?";
+    private static final String UPDATE_STATUS_CMD = "update op set status = ? where id = ?";
 
     public boolean create(Op op) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
@@ -69,6 +70,18 @@ public class OpRepository {
                 preparedStatement.setLong(8, op.getExecutor().getId());
                 preparedStatement.setLong(9, op.getPeriod().getId());
                 preparedStatement.setLong(10, op.getId());
+                preparedStatement.addBatch();
+            }
+            return preparedStatement.executeBatch();
+        }
+    }
+
+    public int[] updateStatus(List<Op> ops) throws SQLException {
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATUS_CMD)) {
+            for (Op op : ops) {
+                preparedStatement.setString(1, op.getStatus());
+                preparedStatement.setLong(2, op.getId());
                 preparedStatement.addBatch();
             }
             return preparedStatement.executeBatch();

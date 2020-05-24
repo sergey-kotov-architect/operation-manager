@@ -67,7 +67,7 @@ public class OpService {
     public void update(long opGroupId, List<Op> ops) {
         log.info("updating operations for group ID {}", opGroupId);
         try {
-            opRepository.update(ops);
+            opRepository.updateStatus(ops);
         } catch (Exception e) {
             log.error("failed to update operations for group ID {}", opGroupId, e);
             messageProducer.sendOpEvent(OpEvent.OPS_NOT_UPDATED, opGroupId, ops);
