@@ -16,7 +16,6 @@ import java.util.List;
 public class MessageProducer {
     private static final Logger log = LoggerFactory.getLogger(MessageProducer.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String TOPIC = "OPERATION";
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
@@ -30,7 +29,7 @@ public class MessageProducer {
         try {
             Event event = new Event(code, message, LocalDateTime.now().toString(), body);
             String json = objectMapper.writeValueAsString(event);
-            kafkaTemplate.send(TOPIC, json);
+            kafkaTemplate.send(code, json);
         } catch (Exception e) {
             log.error("failed to send event to Kafka: {}", message, e);
         }
