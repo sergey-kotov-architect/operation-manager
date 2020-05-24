@@ -74,7 +74,8 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 ### Technologies 
 * Java 8 
 * Spring framework (Boot, Actuator, Web/MVC, Data, Test, Slf4j/Logback)
-* Oracle Database 
+* Oracle Database (for MVP SQLite is to be used instead)  
+* SQLite, JDBC, Apache DBCP (connection pooling framework)  
 * Redis 
 * Apache Kafka 
 * Maven 
