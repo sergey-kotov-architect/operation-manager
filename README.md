@@ -26,8 +26,8 @@ to be done, plus PowerPoint presentation, who are potential users, what is busin
 * Schedule - a set of operations, pair (task, period) is unique in the set.  
 
 ### Data Model  
-![Data Model Diagram](operation-manager-data-model.png)  
-[SQLite database schema](operation-manager-sqlite-schema.sql) 
+![Data Model Diagram](operation-service/src/main/resources/operation-manager-data-model.png)  
+[SQLite database schema](operation-service/src/main/resources/operation-manager-sqlite-schema.sql) 
 
 ### Optimisation Task and Solution  
 Task: to generate a schedule, so that operations would be most uniformly distributed among executors.  
@@ -92,8 +92,8 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 
 ### Java 8 Optimisation Algorithm Implementation 
 [Optimisation Service](schedule-service/src/main/java/com/sergeykotov/operationmanager/scheduleservice/service/OptimisationService.java)  
-![operation-manager-screenshot1](operation-manager-screenshot1.png) 
-![operation-manager-screenshot2](operation-manager-screenshot2.png) 
+![operation-manager-screenshot1](schedule-service/src/main/resources/operation-manager-screenshot1.png) 
+![operation-manager-screenshot2](schedule-service/src/main/resources/operation-manager-screenshot2.png) 
 
 ### TODO 
 * implement Report, Audit, Chat, Notification Services, ApiGateway, Kafka  
