@@ -2,26 +2,15 @@ Distributed Information System manages operations, generates its optimal schedul
 
 ### Table of Contents  
 - [Data Model](#data-model)  
-- [Optimisation Task and Solution](#optimisation-task-and-solution)  
-- [Java 8 Optimisation Algorithm Implementation](#java-8-optimisation-algorithm-implementation)  
-- [Functional Requirements](#functional-requirements) 
-- [Non-Functional Requirements](#non-functional-requirements) 
-- [Architecture](#architecture) 
-- [System Architecture Diagram](#system-architecture-diagram) 
+- [Functional Requirements](#functional-requirements)  
+- [Non-Functional Requirements](#non-functional-requirements)  
+- [Architecture](#architecture)  
 - [Technologies and Tools](#technologies-and-tools)  
+- [Optimisation Task and Solution](#optimisation-task-and-solution)   
 
 ### Data Model  
 ![Data Model Diagram](operation-service/src/main/resources/operation-manager-data-model.png)  
 [SQLite database schema](operation-service/src/main/resources/operation-manager-sqlite-schema.sql) 
-
-### Optimisation Task and Solution  
-Task: to generate a schedule, so that operations would be most uniformly distributed among executors.  
-Solution: generate all possible schedules and choose the one with minimal deviation of operation cost sum per executor from its mean value. 
-
-### Java 8 Optimisation Algorithm Implementation 
-[Optimisation Service](schedule-service/src/main/java/com/sergeykotov/operationmanager/scheduleservice/service/OptimisationService.java)  
-![operation-manager-screenshot1](schedule-service/src/main/resources/operation-manager-screenshot1.png) 
-![operation-manager-screenshot2](schedule-service/src/main/resources/operation-manager-screenshot2.png)  
 
 ### Functional Requirements  
 * create/update/delete task/executor/period/operation/operation group.  
@@ -42,9 +31,8 @@ Solution: generate all possible schedules and choose the one with minimal deviat
 ### Architecture  
 Taking into consideration these requirements it has been decided to decouple Scheduler, Reporting, Audit, Chat and Notification into separate services, integrate them with Message System, use Redis in them, RDBMS in Operation Service.  
 The Enterprise Application has a Microservices Architecture, implements CQRS (Command Query Responsibility Segregation) and Event Sourcing patterns of Event-Driven Architecture.  
-
-### System Architecture Diagram  
-![operation-scheduler-architecture](operation-manager-architecture.png)  
+  
+![operation-manager-architecture](operation-manager-architecture.png)  
 1. REST API call to Operation Service to create/update/delete domain entities. 
 2. REST API call to Schedule Service to initiate optimal schedule generation.  
 3. REST API call to Report Service to extract domain entities, schedule, metrics.  
@@ -77,4 +65,12 @@ The Enterprise Application has a Microservices Architecture, implements CQRS (Co
 * Git 
 * GitHub 
 * Jenkins 
-* app.diagram.net
+* app.diagram.net  
+
+### Optimisation Task and Solution  
+Task: to generate a schedule, so that operations would be most uniformly distributed among executors.  
+Solution: generate all possible schedules and choose the one with minimal deviation of operation cost sum per executor from its mean value. 
+
+[Optimisation Service](schedule-service/src/main/java/com/sergeykotov/operationmanager/scheduleservice/service/OptimisationService.java)  
+![operation-manager-screenshot1](schedule-service/src/main/resources/operation-manager-screenshot1.png) 
+![operation-manager-screenshot2](schedule-service/src/main/resources/operation-manager-screenshot2.png)
