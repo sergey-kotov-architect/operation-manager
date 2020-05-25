@@ -13,7 +13,11 @@ import java.util.stream.Collectors;
 public class OptimisationService {
     public List<Op> generateOptimalSchedule(List<Op> ops) {
         List<List<Op>> schedules = getAllPossibleSchedules(ops);
-        return selectOptimalSchedule(schedules);
+        List<Op> schedule = selectOptimalSchedule(schedules);
+        schedule.stream()
+                .filter(o -> o.getStatus().equals(Op.Status.UNSCHEDULED) || o.getStatus().equals(Op.Status.CANCELLED))
+                .forEach(o -> o.setStatus(Op.Status.SCHEDULED));
+        return schedule;
     }
 
     private List<List<Op>> getAllPossibleSchedules(List<Op> ops) {
@@ -32,8 +36,8 @@ public class OptimisationService {
                         newSchedule.add(op);
                         newSchedules.add(newSchedule);
                     } else {
-                        for (List<Op> s : schedules) {
-                            List<Op> newSchedule = new ArrayList<>(s);
+                        for (List<Op> schedule : schedules) {
+                            List<Op> newSchedule = new ArrayList<>(schedule);
                             newSchedule.add(op);
                             newSchedules.add(newSchedule);
                         }
