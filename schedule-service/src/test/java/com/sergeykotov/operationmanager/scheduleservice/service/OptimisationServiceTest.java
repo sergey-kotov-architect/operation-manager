@@ -31,11 +31,11 @@ public class OptimisationServiceTest {
 
         OpGroup opGroup = new OpGroup(1);
 
-        Op op11 = new Op(1, 1.0, opGroup, task1, executor1, period);
-        Op op21 = new Op(2, 1.0, opGroup, task1, executor2, period);
-        Op op22 = new Op(3, 1.0, opGroup, task2, executor2, period);
-        Op op32 = new Op(4, 1.0, opGroup, task2, executor3, period);
-        Op op33 = new Op(5, 1.0, opGroup, task3, executor3, period);
+        Op op11 = new Op(1, 1.0, Op.Status.UNSCHEDULED, opGroup, task1, executor1, period);
+        Op op21 = new Op(2, 1.0, Op.Status.UNSCHEDULED, opGroup, task1, executor2, period);
+        Op op22 = new Op(3, 1.0, Op.Status.UNSCHEDULED, opGroup, task2, executor2, period);
+        Op op32 = new Op(4, 1.0, Op.Status.UNSCHEDULED, opGroup, task2, executor3, period);
+        Op op33 = new Op(5, 1.0, Op.Status.UNSCHEDULED, opGroup, task3, executor3, period);
 
         List<Op> ops = new ArrayList<>();
         ops.add(op11);

@@ -8,14 +8,18 @@ import java.util.Objects;
 public class Op {
     private long id;
     private double cost;
+    private Status status;
     private OpGroup opGroup;
     private Task task;
     private Executor executor;
     private Period period;
 
-    public Op(long id, double cost, OpGroup opGroup, Task task, Executor executor, Period period) {
+    public enum Status {UNSCHEDULED, SCHEDULED, CANCELLED, EXECUTING, COMPLETED, FAILED}
+
+    public Op(long id, double cost, Status status, OpGroup opGroup, Task task, Executor executor, Period period) {
         this.id = id;
         this.cost = cost;
+        this.status = status;
         this.opGroup = opGroup;
         this.task = task;
         this.executor = executor;
@@ -32,6 +36,14 @@ public class Op {
 
     public double getCost() {
         return cost;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Task getTask() {

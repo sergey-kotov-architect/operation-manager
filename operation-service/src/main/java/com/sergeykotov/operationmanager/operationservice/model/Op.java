@@ -13,8 +13,8 @@ public class Op {
 
     private String note;
 
-    @NotEmpty
-    private String status;
+    @NotNull
+    private Status status;
 
     @Positive
     private double profit;
@@ -34,20 +34,9 @@ public class Op {
     @NotNull
     private Period period;
 
-    public Op() {
-    }
+    public enum Status {UNSCHEDULED, SCHEDULED, CANCELLED, EXECUTING, COMPLETED, FAILED}
 
-    public Op(long id, String name, String note, String status, double profit, double cost, OpGroup opGroup, Task task, Executor executor, Period period) {
-        this.id = id;
-        this.name = name;
-        this.note = note;
-        this.status = status;
-        this.profit = profit;
-        this.cost = cost;
-        this.opGroup = opGroup;
-        this.task = task;
-        this.executor = executor;
-        this.period = period;
+    public Op() {
     }
 
     public long getId() {
@@ -74,11 +63,11 @@ public class Op {
         this.note = note;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
